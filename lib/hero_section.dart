@@ -251,7 +251,7 @@ class _StatsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = <Widget>[
-      AnimatedCounter(value: 5.5, label: "Years Exp", suffix: "+"),
+      AnimatedCounter(value: 3.5, label: "Years Exp", suffix: "+"),
       AnimatedCounter(value: 500, label: "Downloads", suffix: "K+"),
       const StatChip(value: "Full-Stack", label: "Flutter · Node · NestJS"),
       if (!isMobile)
