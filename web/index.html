@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Naeem Iqbal — Full-Stack Flutter Engineer | Video & Streaming Apps">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naeem Iqbal — Flutter Engineer</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body { margin: 0; background-color: #080B10; overflow-x: hidden; }
+    #loading { position: fixed; inset: 0; background: #080B10; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.4s; }
+    #loading.hide { opacity: 0; pointer-events: none; }
+    .loader-text { font-family: monospace; color: #00E5A0; font-size: 14px; letter-spacing: 2px; animation: pulse 1.2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <span class="loader-text">NI — LOADING...</span>
+  </div>
+  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    window.addEventListener('flutter-first-frame', () => {
+      const l = document.getElementById('loading');
+      l.classList.add('hide');
+      setTimeout(() => l.remove(), 500);
+    });
+  </script>
+</body>
+</html>
