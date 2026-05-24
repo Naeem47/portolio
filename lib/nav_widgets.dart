@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'portfolio_data.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'shared_widgets.dart';
 import 'theme.dart';
 
@@ -535,7 +536,7 @@ class MobileDrawer extends StatelessWidget {
 // ── Drawer Item ────────────────────────────────────────────────────────────────
 
 class _DrawerItem extends StatefulWidget {
-  final IconData icon;
+  final FaIconData icon;
   final String label;
   final int index;
   final VoidCallback onTap;
@@ -614,7 +615,7 @@ class _DrawerItemState extends State<_DrawerItem> {
                     width: 1,
                   ),
                 ),
-                child: Icon(
+                child: FaIcon(
                   widget.icon,
                   size: 16,
                   color: active ? AppColors.accent : AppColors.muted,

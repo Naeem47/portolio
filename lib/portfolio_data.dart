@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
-import 'package:portfolio/models.dart';
 
+import 'package:portfolio/models.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'theme.dart';
 
 class PortfolioData {
@@ -165,16 +164,31 @@ class PortfolioData {
   ];
 
   static final List<SocialLink> socials = [
-    SocialLink(label: "LinkedIn", icon: LucideIcons.linkedin,    url: linkedIn),
-    SocialLink(label: "GitHub",   icon: LucideIcons.github,            url: github),
-    SocialLink(label: "Email",    icon: LucideIcons.mail,  url: email),
+    SocialLink(label: "LinkedIn", icon:  FontAwesomeIcons.linkedinIn,    url: linkedIn),
+    SocialLink(label: "GitHub",   icon: FontAwesomeIcons.github,            url: github),
+    SocialLink(label: "Email",    icon: FontAwesomeIcons.envelope,  url: email),
   ];
 
 static final List<NavItem> navItems = [
-  NavItem(label: "Home",     icon: LucideIcons.home),
-  NavItem(label: "About",    icon: LucideIcons.user),
-  NavItem(label: "Skills",   icon: LucideIcons.code2),
-  NavItem(label: "Projects", icon: LucideIcons.folderKanban),
-  NavItem(label: "Contact",  icon: LucideIcons.mail),
+  NavItem(
+    label: "Home",
+    icon: FontAwesomeIcons.house,
+  ),
+  NavItem(
+    label: "About",
+    icon: FontAwesomeIcons.user,
+  ),
+  NavItem(
+    label: "Skills",
+    icon: FontAwesomeIcons.code,
+  ),
+  NavItem(
+    label: "Projects",
+    icon: FontAwesomeIcons.diagramProject,
+  ),
+  NavItem(
+    label: "Contact",
+    icon: FontAwesomeIcons.envelope,
+  ),
 ];
 }

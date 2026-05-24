@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart' show FaIconData;
 
 class SkillCategory {
   final String title;
@@ -36,7 +37,7 @@ class Project {
 
 class SocialLink {
   final String label;
-  final IconData icon;
+  final FaIconData icon;
   final String url;
 
   const SocialLink({
@@ -48,7 +49,7 @@ class SocialLink {
 
 class NavItem {
   final String label;
-  final IconData icon;
+  final FaIconData icon;
 
   const NavItem({required this.label, required this.icon});
 }

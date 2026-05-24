@@ -38,7 +38,8 @@ dependencies:
   url_launcher: 
   animated_text_kit: 
   visibility_detector: 
-  lucide_icons: ^0.257.0
+  lucide_flutter: ^1.16.0
+  font_awesome_flutter: ^11.0.0
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,8 @@ import 'package:portfolio/animations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'portfolio_data.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart' ;
+
 import 'shared_widgets.dart';
 import 'theme.dart';
 
@@ -343,7 +345,7 @@ class _PulseDotState extends State<_PulseDot>
 class _SocialRow extends StatefulWidget {
   final String label;
   final String url;
-  final IconData icon;
+  final FaIconData icon;
   final VoidCallback onTap;
   const _SocialRow({
     required this.label,
@@ -399,10 +401,12 @@ class _SocialRowState extends State<_SocialRow> {
                         : AppColors.border,
                   ),
                 ),
-                child: Icon(
-                  widget.icon,
-                  size: 17,
-                  color: _hovered ? AppColors.accent : AppColors.mutedLight,
+                child: Center(
+                  child: FaIcon(
+                    widget.icon,
+                    size: 17,
+                    color: _hovered ? AppColors.accent : AppColors.mutedLight,
+                  ),
                 ),
               ),
               const SizedBox(width: 14),
