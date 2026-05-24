@@ -20,17 +20,22 @@ class _PortfolioPageState extends State<PortfolioPage> {
   final _scroll = ScrollController();
 
   // Section keys for scroll-to
-  final _heroKey     = GlobalKey();
-  final _aboutKey    = GlobalKey();
-  final _skillsKey   = GlobalKey();
+  final _heroKey = GlobalKey();
+  final _aboutKey = GlobalKey();
+  final _skillsKey = GlobalKey();
   final _projectsKey = GlobalKey();
-  final _contactKey  = GlobalKey();
+  final _contactKey = GlobalKey();
 
-  bool _navVisible     = false;
-  bool _showBackToTop  = false;
+  bool _navVisible = false;
+  bool _showBackToTop = false;
 
-  List<GlobalKey> get _sectionKeys =>
-      [_heroKey, _aboutKey, _skillsKey, _projectsKey, _contactKey];
+  List<GlobalKey> get _sectionKeys => [
+    _heroKey,
+    _aboutKey,
+    _skillsKey,
+    _projectsKey,
+    _contactKey,
+  ];
 
   @override
   void initState() {
@@ -52,7 +57,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
     final showTop = offset > 300;
     if (showNav != _navVisible || showTop != _showBackToTop) {
       setState(() {
-        _navVisible    = showNav;
+        _navVisible = showNav;
         _showBackToTop = showTop;
       });
     }
@@ -69,24 +74,26 @@ class _PortfolioPageState extends State<PortfolioPage> {
   }
 
   void _scrollToTop() => _scroll.animateTo(
-        0,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOutCubic,
-      );
+    0,
+    duration: const Duration(milliseconds: 500),
+    curve: Curves.easeInOutCubic,
+  );
 
   @override
   Widget build(BuildContext context) {
-    final width       = MediaQuery.of(context).size.width;
-    final isMobile    = width < AppLayout.mobileBreak;
-    final isSmallMob  = width < AppLayout.smallMobile;
+    final width = MediaQuery.of(context).size.width;
+    final isMobile = width < AppLayout.mobileBreak;
+    final isSmallMob = width < AppLayout.smallMobile;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
       drawer: isMobile
-          ? MobileDrawer(onTap: (i) {
-              Navigator.pop(context);
-              _scrollTo(_sectionKeys[i]);
-            })
+          ? MobileDrawer(
+              onTap: (i) {
+                Navigator.pop(context);
+                _scrollTo(_sectionKeys[i]);
+              },
+            )
           : null,
       body: Stack(
         children: [
@@ -103,10 +110,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
                     isSmallMobile: isSmallMob,
                     onScrollDown: () => _scrollTo(_aboutKey),
                   ),
-                  AboutSection(
-                    key: _aboutKey,
-                    isMobile: isMobile,
-                  ),
+                  AboutSection(key: _aboutKey, isMobile: isMobile),
                   SkillsSection(
                     key: _skillsKey,
                     isMobile: isMobile,
@@ -117,42 +121,44 @@ class _PortfolioPageState extends State<PortfolioPage> {
                     isMobile: isMobile,
                     isSmallMobile: isSmallMob,
                   ),
-                  ContactSection(
-                    key: _contactKey,
-                    isMobile: isMobile,
-                  ),
+                  ContactSection(key: _contactKey, isMobile: isMobile),
                   FooterSection(isMobile: isMobile),
                 ],
               ),
             ),
           ),
 
-          // ── Floating nav bar ─────────────────────────────────────────────────
-          AnimatedOpacity(
-            opacity: _navVisible ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 300),
-            child: IgnorePointer(
-              ignoring: !_navVisible,
-              child: FloatingNav(
-                isMobile: isMobile,
-                onTap: (i) => _scrollTo(_sectionKeys[i]),
-              ),
-            ),
-          ),
-
-          // ── Back to top FAB ──────────────────────────────────────────────────
-          AnimatedOpacity(
-            opacity: _showBackToTop ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 300),
-            child: Positioned(
-              bottom: 24,
-              right: 24,
+          // // ── Floating nav bar ─────────────────────────────────────────────────
+          if (!isMobile)
+            AnimatedOpacity(
+              opacity: _navVisible ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 300),
               child: IgnorePointer(
-                ignoring: !_showBackToTop,
-                child: _BackToTopButton(onTap: _scrollToTop),
+                ignoring: !_navVisible,
+                child: FloatingNav(
+                  isMobile: isMobile,
+                  onTap: (i) => _scrollTo(_sectionKeys[i]),
+                ),
               ),
             ),
-          ),
+
+          // // ── Back to top FAB ──────────────────────────────────────────────────
+          if (isMobile)
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: AnimatedOpacity(
+                  opacity: _showBackToTop ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 300),
+                  
+                  child: IgnorePointer(
+                    ignoring: !_showBackToTop,
+                    child: _BackToTopButton(onTap: _scrollToTop),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -174,7 +180,7 @@ class _BackToTopButtonState extends State<_BackToTopButton> {
   Widget build(BuildContext context) {
     return MouseRegion(
       onEnter: (_) => setState(() => _hovered = true),
-      onExit:  (_) => setState(() => _hovered = false),
+      onExit: (_) => setState(() => _hovered = false),
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: widget.onTap,
@@ -192,7 +198,11 @@ class _BackToTopButtonState extends State<_BackToTopButton> {
               ),
             ],
           ),
-          child: const Icon(Icons.keyboard_arrow_up_rounded, color: AppColors.bg, size: 22),
+          child: const Icon(
+            Icons.keyboard_arrow_up_rounded,
+            color: AppColors.bg,
+            size: 22,
+          ),
         ),
       ),
     );

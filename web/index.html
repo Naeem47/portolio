@@ -2,31 +2,232 @@
 <html>
 <head>
   <base href="$FLUTTER_BASE_HREF">
+
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Naeem Iqbal — Full-Stack Flutter Engineer | Video & Streaming Apps">
+
+  <meta
+    name="description"
+    content="Naeem Iqbal — Full-Stack Product Engineer specializing in Flutter, scalable backends, and modern digital experiences."
+  >
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Naeem Iqbal — Flutter Engineer</title>
+
   <link rel="manifest" href="manifest.json">
+
   <style>
-    body { margin: 0; background-color: #080B10; overflow-x: hidden; }
-    #loading { position: fixed; inset: 0; background: #080B10; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.4s; }
-    #loading.hide { opacity: 0; pointer-events: none; }
-    .loader-text { font-family: monospace; color: #00E5A0; font-size: 14px; letter-spacing: 2px; animation: pulse 1.2s ease-in-out infinite; }
-    @keyframes pulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #080B10;
+      overflow: hidden;
+    }
+
+    #loading {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at top, rgba(0, 229, 160, 0.08), transparent 40%),
+        #080B10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      transition: opacity .6s ease, visibility .6s ease;
+    }
+
+    #loading.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+      animation: fadeIn 1s ease;
+    }
+
+    .logo-box {
+      width: 88px;
+      height: 88px;
+      border-radius: 26px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.05),
+          rgba(255,255,255,.02)
+        );
+
+      border: 1px solid rgba(255,255,255,.08);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      backdrop-filter: blur(10px);
+
+      box-shadow:
+        0 0 40px rgba(0, 229, 160, .08),
+        inset 0 1px 0 rgba(255,255,255,.04);
+
+      animation:
+        float 3s ease-in-out infinite,
+        glow 2.5s ease-in-out infinite;
+    }
+
+    .logo-text {
+      font-size: 30px;
+      font-weight: 700;
+      color: #00E5A0;
+      font-family: Inter, sans-serif;
+      letter-spacing: 2px;
+    }
+
+    .loading-line {
+      width: 150px;
+      height: 3px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,.06);
+      position: relative;
+    }
+
+    .loading-line::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background: linear-gradient(
+        90deg,
+        transparent,
+        #00E5A0,
+        transparent
+      );
+
+      animation: loading 1.6s linear infinite;
+    }
+
+    .subtitle {
+      color: rgba(255,255,255,.58);
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      font-family: Inter, sans-serif;
+      text-transform: uppercase;
+    }
+
+    .bg-blur {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(0, 229, 160, 0.06);
+      border-radius: 50%;
+      filter: blur(120px);
+      animation: pulse 5s ease-in-out infinite;
+    }
+
+    @keyframes loading {
+      from {
+        transform: translateX(-100%);
+      }
+
+      to {
+        transform: translateX(100%);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        box-shadow:
+          0 0 40px rgba(0, 229, 160, .08),
+          inset 0 1px 0 rgba(255,255,255,.04);
+      }
+
+      50% {
+        box-shadow:
+          0 0 60px rgba(0, 229, 160, .18),
+          inset 0 1px 0 rgba(255,255,255,.08);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: .5;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: .9;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
+
 <body>
+
   <div id="loading">
-    <span class="loader-text">NI — LOADING...</span>
+
+    <div class="bg-blur"></div>
+
+    <div class="loader-wrapper">
+
+      <div class="logo-box">
+        <span class="logo-text">NI</span>
+      </div>
+
+      <div class="loading-line"></div>
+
+      <div class="subtitle">
+        Crafting Digital Experiences
+      </div>
+
+    </div>
   </div>
+
   <script src="flutter_bootstrap.js" async></script>
+
   <script>
-    window.addEventListener('flutter-first-frame', () => {
-      const l = document.getElementById('loading');
-      l.classList.add('hide');
-      setTimeout(() => l.remove(), 500);
+    window.addEventListener('flutter-first-frame', function () {
+      const loader = document.getElementById('loading');
+
+      loader.classList.add('hide');
+
+      setTimeout(() => {
+        loader.remove();
+      }, 700);
     });
   </script>
+
 </body>
 </html>
