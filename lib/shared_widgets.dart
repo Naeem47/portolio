@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'theme.dart';
 
@@ -32,7 +33,7 @@ class AccentButton extends StatefulWidget {
   final String label;
   final VoidCallback onTap;
   final bool small;
-  final IconData? icon;
+  final FaIconData? icon;
 
   const AccentButton({
     super.key,
@@ -78,7 +79,7 @@ class _AccentButtonState extends State<AccentButton> {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.icon != null) ...[
-                Icon(widget.icon, size: widget.small ? 14 : 18, color: AppColors.bg),
+                FaIcon(widget.icon, size: widget.small ? 14 : 18, color: AppColors.bg),
                 const SizedBox(width: 8),
               ],
               Text(
@@ -97,7 +98,7 @@ class _AccentButtonState extends State<AccentButton> {
 class OutlineButton extends StatefulWidget {
   final String label;
   final VoidCallback onTap;
-  final IconData? icon;
+  final FaIconData? icon;
 
   const OutlineButton({
     super.key,
@@ -136,7 +137,7 @@ class _OutlineButtonState extends State<OutlineButton> {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.icon != null) ...[
-                Icon(widget.icon, size: 18, color: _hovered ? AppColors.white : AppColors.mutedLight),
+                FaIcon(widget.icon, size: 18, color: _hovered ? AppColors.white : AppColors.mutedLight),
                 const SizedBox(width: 8),
               ],
               Text(

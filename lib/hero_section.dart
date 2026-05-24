@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio/animations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -135,12 +136,12 @@ class _HeroSectionState extends State<HeroSection>
                     children: [
                       AccentButton(
                         label: "View Projects",
-                        icon: Icons.arrow_downward,
+                        icon: FontAwesomeIcons.arrowDownShortWide,
                         onTap: widget.onScrollDown,
                       ),
                       OutlineButton(
                         label: "Download CV",
-                        icon: Icons.download_outlined,
+                        icon: FontAwesomeIcons.download,
                         onTap: () => launchUrl(Uri.parse(PortfolioData.linkedIn)),
                       ),
                     ],
@@ -187,29 +188,39 @@ class _AvailabilityBadge extends StatelessWidget {
     );
   }
 }
-
 class _AnimatedRoleRow extends StatelessWidget {
   final bool isMobile;
   final double fontSize;
-  const _AnimatedRoleRow({required this.isMobile, required this.fontSize});
+
+  const _AnimatedRoleRow({
+    required this.isMobile,
+    required this.fontSize,
+  });
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
+        final animatedWidth = isMobile
+            ? constraints.maxWidth
+            : (constraints.maxWidth * 0.62).clamp(220.0, 500.0);
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "I build  ",
+              "I build",
               style: AppTextStyles.body(
                 fontSize: fontSize,
                 color: AppColors.muted,
               ),
             ),
+
+            const SizedBox(height: 6),
+
             SizedBox(
-              // Constrain the typewriter width so it never overflows
-              width: (constraints.maxWidth * 0.75).clamp(160, 400),
+              width: animatedWidth,
+              height: fontSize * 1.6,
               child: AnimatedTextKit(
                 repeatForever: true,
                 pause: const Duration(milliseconds: 900),
@@ -233,7 +244,6 @@ class _AnimatedRoleRow extends StatelessWidget {
     );
   }
 }
-
 class _StatsRow extends StatelessWidget {
   final bool isMobile;
   const _StatsRow({required this.isMobile});
@@ -241,7 +251,7 @@ class _StatsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = <Widget>[
-      AnimatedCounter(value: 2.5, label: "Years Exp", suffix: "+"),
+      AnimatedCounter(value: 5.5, label: "Years Exp", suffix: "+"),
       AnimatedCounter(value: 500, label: "Downloads", suffix: "K+"),
       const StatChip(value: "Full-Stack", label: "Flutter · Node · NestJS"),
       if (!isMobile)

@@ -1,18 +1,18 @@
-
 import 'package:portfolio/models.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'theme.dart';
 
 class PortfolioData {
-  static const String name     = "Naeem Iqbal";
+  static const String name = "Naeem Iqbal";
   static const String initials = "NI";
-  static const String role     = "Flutter Engineer";
-  static const String linkedIn = "https://linkedin.com/in/naeem-iqbal-965886221";
-  static const String github   = "https://github.com/Naeem47";
-  static const String email    = "mailto:tfanaeem@gmail.com";
+  static const String role = "Flutter Engineer";
+  static const String linkedIn =
+      "https://linkedin.com/in/naeem-iqbal-965886221";
+  static const String github = "https://github.com/Naeem47";
+  static const String email = "mailto:tfanaeem@gmail.com";
 
   static const String bio =
-      "Mid-level Flutter Engineer with 2.5+ years building cross-platform products. "
+      "Mid-level Flutter Engineer with 3.5+ years building cross-platform products. "
       "From social platforms to AI-powered apps to desktop POS — full-stack, "
       "pixel-perfect, and production-ready.";
 
@@ -28,59 +28,191 @@ class PortfolioData {
       "and talks to a server, I've probably built it.";
 
   static const List<String> aboutTags = [
-    "Flutter", "Dart", "Riverpod", "BLoC",
-    "NestJS", "PostgreSQL", "Gemini AI", "FFmpeg",
-    "Agora", "Socket.IO", "SQFlite",
+    "Flutter",
+    "Dart",
+    "Firebase",
+    "Supabase",
+    "REST APIs",
+    "Socket.IO",
+    "NestJS",
+    "Node.js",
+    "PostgreSQL",
+    "MongoDB",
+    "AI Integration",
+    "Gemini AI",
+    "OpenAI",
+    "FFmpeg",
+    "Agora SDK",
+    "Stripe",
+    "Real-time Apps",
+    "Clean Architecture",
+    "Responsive UI",
+    "Desktop Apps",
+    "POS Systems",
+    "BLoC", // you list it in skills but not tags — recruiters search this
+    "Riverpod", // same
+    "WebSockets", // more searchable than "Socket.IO" alone
+    "GetX", // if you've used it
   ];
 
   static const List<String> animatedRoles = [
-    "cross-platform experiences.",
-    "real-time social features.",
-    "AI-powered mobile apps.",
-    "full-stack Flutter products.",
-    "desktop & POS systems.",
+    "beautiful cross-platform apps.",
+    "production-ready Flutter solutions.",
+    "desktop & POS management systems.",
+    "real-time social platforms.",
+    "scalable full-stack products.",
+    "AI-integrated mobile experiences.",
+    "pixel-perfect, clean-code architectures.",
   ];
-
   static final List<SkillCategory> skills = [
     SkillCategory(
-      title: "Mobile",
+      title: "Mobile Development",
+      iconData: FontAwesomeIcons.mobile,
       color: AppColors.accent,
       bgColor: AppColors.accentBg,
       skills: [
-        "Flutter", "Dart", "BLoC", "Riverpod", "Provider",
-        "Animations", "CustomPaint", "Platform Channels",
+        "Flutter",
+        "Dart",
+        "Responsive UI",
+        "Cross-Platform Apps",
+        "State Management",
+        "BLoC",
+        "Riverpod",
+        "Provider",
+        "Animations",
+        "CustomPaint",
+        "Platform Channels",
+        "Clean Architecture",
+        "Performance Optimization",
+        "REST API Integration",
+        "Socket.IO",
+        "Real-time Features",
+        "Push Notifications",
+        "Stripe Integration",
+        "In-App Purchases",
       ],
     ),
+
     SkillCategory(
-      title: "Backend",
+      title: "Backend & APIs",
+      iconData: FontAwesomeIcons.code,
+
       color: AppColors.purple,
       bgColor: AppColors.purpleBg,
       skills: [
-        "Node.js", "NestJS", "REST APIs", "PostgreSQL",
-        "TypeORM", "JWT Auth", "WebSockets", "Redis",
+        "Node.js",
+        "NestJS",
+        "Express.js",
+        "REST APIs",
+        "WebSockets",
+        "JWT Authentication",
+        "Role-Based Access",
+        "Microservices",
+        "PostgreSQL",
+        "MongoDB",
+        "Redis",
+        "TypeORM",
+        "Firebase",
+        "Supabase",
+        "Cloud Functions",
       ],
     ),
+
     SkillCategory(
-      title: "Speciality",
+      iconData: FontAwesomeIcons.database,
+
+      title: "Databases & Storage",
       color: AppColors.orange,
       bgColor: AppColors.orangeBg,
       skills: [
-        "FFmpeg", "Agora", "Gemini AI", "Socket.IO",
-        "SQFlite", "Video Processing", "AI Integration",
+        "PostgreSQL",
+        "MongoDB",
+        "Firebase Firestore",
+        "Supabase",
+        "SQLite",
+        "Hive",
+        "Offline-First Apps",
+        "Local Storage",
+        "Caching",
+        "Secure Storage",
+      ],
+    ),
+
+    SkillCategory(
+      iconData: FontAwesomeIcons.connectdevelop,
+
+      title: "Real-Time & Media",
+      color: AppColors.green,
+      bgColor: AppColors.greenBg,
+      skills: [
+        "Socket.IO",
         "Real-time Chat",
+        "Live Updates",
+        "Agora SDK",
+        "Video Calling",
+        "Media Streaming",
+        "FFmpeg",
+        "Video Processing",
+        "Audio Processing",
+        "Push Notifications",
+      ],
+    ),
+
+    SkillCategory(
+      iconData: FontAwesomeIcons.microchip,
+
+      title: "AI & Integrations",
+      color: AppColors.yellow,
+      bgColor: AppColors.yellowBg,
+      skills: [
+        "Gemini AI",
+        "OpenAI APIs",
+        "AI Integration",
+        "Payment Gateways",
+        "Stripe",
+        "Firebase Services",
+        "Google APIs",
+        "Third-Party SDKs",
+      ],
+    ),
+
+    SkillCategory(
+      iconData: FontAwesomeIcons.tools,
+
+      title: "Tools & Workflow",
+      color: AppColors.mutedLight,
+      bgColor: AppColors.surface,
+      skills: [
+        "Git",
+        "GitHub",
+        "Postman",
+        "Figma",
+        "VS Code",
+        "Android Studio",
+        "CI/CD",
+        "Debugging",
+        "Agile Workflow",
       ],
     ),
     SkillCategory(
-      title: "Tools",
-      color: AppColors.mutedLight,
-      bgColor: AppColors.surface,
-      skills: ["Git", "Postman", "Figma", "VS Code", "Firebase", "Dio"],
+      title: "Desktop & Specialized",
+      skills: [
+        "Flutter Desktop",
+        "Windows Apps",
+        "POS Systems",
+        "Offline-First",
+        "Hardware Integration",
+        "Barcode/QR Scanning",
+        "Receipt Printing",
+      ],
+      color: AppColors.blue,
+      bgColor: AppColors.blueBg,
+      iconData: FontAwesomeIcons.desktop,
     ),
   ];
 
   static final List<Project> projects = [
     // ── Real projects ──────────────────────────────────────────────────────
-
     Project(
       number: "01",
       title: "Social Media App",
@@ -122,7 +254,6 @@ class PortfolioData {
     ),
 
     // ── Filler mid-level projects ──────────────────────────────────────────
-
     Project(
       number: "04",
       title: "Task & Team Manager",
@@ -164,31 +295,20 @@ class PortfolioData {
   ];
 
   static final List<SocialLink> socials = [
-    SocialLink(label: "LinkedIn", icon:  FontAwesomeIcons.linkedinIn,    url: linkedIn),
-    SocialLink(label: "GitHub",   icon: FontAwesomeIcons.github,            url: github),
-    SocialLink(label: "Email",    icon: FontAwesomeIcons.envelope,  url: email),
+    SocialLink(
+      label: "LinkedIn",
+      icon: FontAwesomeIcons.linkedinIn,
+      url: linkedIn,
+    ),
+    SocialLink(label: "GitHub", icon: FontAwesomeIcons.github, url: github),
+    SocialLink(label: "Email", icon: FontAwesomeIcons.envelope, url: email),
   ];
 
-static final List<NavItem> navItems = [
-  NavItem(
-    label: "Home",
-    icon: FontAwesomeIcons.house,
-  ),
-  NavItem(
-    label: "About",
-    icon: FontAwesomeIcons.user,
-  ),
-  NavItem(
-    label: "Skills",
-    icon: FontAwesomeIcons.code,
-  ),
-  NavItem(
-    label: "Projects",
-    icon: FontAwesomeIcons.diagramProject,
-  ),
-  NavItem(
-    label: "Contact",
-    icon: FontAwesomeIcons.envelope,
-  ),
-];
+  static final List<NavItem> navItems = [
+    NavItem(label: "Home", icon: FontAwesomeIcons.house),
+    NavItem(label: "About", icon: FontAwesomeIcons.user),
+    NavItem(label: "Skills", icon: FontAwesomeIcons.code),
+    NavItem(label: "Projects", icon: FontAwesomeIcons.diagramProject),
+    NavItem(label: "Contact", icon: FontAwesomeIcons.envelope),
+  ];
 }

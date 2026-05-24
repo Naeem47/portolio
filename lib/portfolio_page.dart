@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/about_section.dart';
+import 'package:portfolio/bg_animation.dart';
 import 'package:portfolio/contact_section.dart';
 import 'package:portfolio/footer_section.dart';
 import 'package:portfolio/hero_section.dart';
@@ -90,101 +91,99 @@ class _PortfolioPageState extends State<PortfolioPage> {
       body: Stack(
         children: [
           // ── Scrollable content — RepaintBoundary keeps it isolated ─────────
-      RepaintBoundary(
-  child: Container(
-    decoration: const BoxDecoration(gradient: AppColors.bgGradient),
-    child: CustomScrollView(
-      controller: _scroll,
-      physics: const ClampingScrollPhysics(),
-      // slivers: [
-      //   SliverToBoxAdapter(
-      //     key: _heroKey,
-      //     child: HeroSection(
-      //       isMobile: isMobile,
-      //       isSmallMobile: isSmallMob,
-      //       onScrollDown: () => _scrollTo(_aboutKey),
-      //     ),
-      //   ),
-      //   SliverToBoxAdapter(
-      //     key: _aboutKey,
-      //     child: AboutSection(isMobile: isMobile),
-      //   ),
-      //   SliverToBoxAdapter(
-      //     key: _skillsKey,
-      //     child: SkillsSection(
-      //       isMobile: isMobile,
-      //       isSmallMobile: isSmallMob,
-      //     ),
-      //   ),
-      //   SliverToBoxAdapter(
-      //     key: _projectsKey,
-      //     child: RepaintBoundary(
-      //       child: ProjectsSection(
-      //         isMobile: isMobile,
-      //         isSmallMobile: isSmallMob,
-      //       ),
-      //     ),
-      //   ),
-      //   SliverToBoxAdapter(
-      //     key: _skillsKey,
-      //     child: RepaintBoundary(
-      //       child: SkillsSection(
-      //         isMobile: isMobile,
-      //         isSmallMobile: isSmallMob,
-      //       ),
-      //     ),
-      //   ),
-      //   SliverToBoxAdapter(
-      //     key: _contactKey,
-      //     child: ContactSection(isMobile: isMobile),
-      //   ),
-      //   SliverToBoxAdapter(
-      //     child: FooterSection(isMobile: isMobile),
-      //   ),
-      // ],
-  
-  slivers: [
-  SliverToBoxAdapter(
-    key: _heroKey,
-    child: HeroSection(
-      isMobile: isMobile,
-      isSmallMobile: isSmallMob,
-      onScrollDown: () => _scrollTo(_aboutKey),
-    ),
-  ),
-  SliverToBoxAdapter(
-    key: _aboutKey,
-    child: AboutSection(isMobile: isMobile),
-  ),
-  SliverToBoxAdapter(
-    key: _skillsKey,
-    child: RepaintBoundary(
-      child: SkillsSection(
-        isMobile: isMobile,
-        isSmallMobile: isSmallMob,
-      ),
-    ),
-  ),
-  SliverToBoxAdapter(
-    key: _projectsKey,
-    child: RepaintBoundary(
-      child: ProjectsSection(
-        isMobile: isMobile,
-        isSmallMobile: isSmallMob,
-      ),
-    ),
-  ),
-  SliverToBoxAdapter(
-    key: _contactKey,
-    child: ContactSection(isMobile: isMobile),
-  ),
-  SliverToBoxAdapter(
-    child: FooterSection(isMobile: isMobile),
-  ),
-],
-    ),
-  ),
-), // ── Floating nav — only repaints itself via ValueListenableBuilder ──
+          RepaintBoundary(
+            child: Container(
+              decoration: const BoxDecoration(gradient: AppColors.bgGradient),
+              child: CustomScrollView(
+                controller: _scroll,
+                physics: const ClampingScrollPhysics(),
+
+                // slivers: [
+                //   SliverToBoxAdapter(
+                //     key: _heroKey,
+                //     child: HeroSection(
+                //       isMobile: isMobile,
+                //       isSmallMobile: isSmallMob,
+                //       onScrollDown: () => _scrollTo(_aboutKey),
+                //     ),
+                //   ),
+                //   SliverToBoxAdapter(
+                //     key: _aboutKey,
+                //     child: AboutSection(isMobile: isMobile),
+                //   ),
+                //   SliverToBoxAdapter(
+                //     key: _skillsKey,
+                //     child: SkillsSection(
+                //       isMobile: isMobile,
+                //       isSmallMobile: isSmallMob,
+                //     ),
+                //   ),
+                //   SliverToBoxAdapter(
+                //     key: _projectsKey,
+                //     child: RepaintBoundary(
+                //       child: ProjectsSection(
+                //         isMobile: isMobile,
+                //         isSmallMobile: isSmallMob,
+                //       ),
+                //     ),
+                //   ),
+                //   SliverToBoxAdapter(
+                //     key: _skillsKey,
+                //     child: RepaintBoundary(
+                //       child: SkillsSection(
+                //         isMobile: isMobile,
+                //         isSmallMobile: isSmallMob,
+                //       ),
+                //     ),
+                //   ),
+                //   SliverToBoxAdapter(
+                //     key: _contactKey,
+                //     child: ContactSection(isMobile: isMobile),
+                //   ),
+                //   SliverToBoxAdapter(
+                //     child: FooterSection(isMobile: isMobile),
+                //   ),
+                // ],
+                slivers: [
+                  SliverToBoxAdapter(
+                    key: _heroKey,
+                    child: HeroSection(
+                      isMobile: isMobile,
+                      isSmallMobile: isSmallMob,
+                      onScrollDown: () => _scrollTo(_aboutKey),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    key: _aboutKey,
+                    child: AboutSection(isMobile: isMobile),
+                  ),
+                  SliverToBoxAdapter(
+                    key: _skillsKey,
+                    child: RepaintBoundary(
+                      child: SkillsSection(
+                        isMobile: isMobile,
+                        isSmallMobile: isSmallMob,
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    key: _projectsKey,
+                    child: RepaintBoundary(
+                      child: ProjectsSection(
+                        isMobile: isMobile,
+                        isSmallMobile: isSmallMob,
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    key: _contactKey,
+                    child: ContactSection(isMobile: isMobile),
+                  ),
+                  SliverToBoxAdapter(child: FooterSection(isMobile: isMobile)),
+                ],
+              ),
+            ),
+          ), // ── Floating nav — only repaints itself via ValueListenableBuilder ──
           if (!isMobile)
             _FadeOverlay(
               visible: _navVisible,
@@ -204,6 +203,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
                 child: _BackToTopButton(onTap: _scrollToTop),
               ),
             ),
+
         ],
       ),
     );

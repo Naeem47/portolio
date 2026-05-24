@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio/shared_widgets.dart';
 
 import 'models.dart';
@@ -21,10 +22,7 @@ class SkillsSection extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        horizontal: hPad,
-        vertical: AppLayout.xxxl,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: hPad, vertical: AppLayout.xxxl),
       decoration: const BoxDecoration(
         color: AppColors.surface,
         border: Border(top: BorderSide(color: AppColors.border)),
@@ -129,11 +127,9 @@ class _AnimatedSkillCardState extends State<_AnimatedSkillCard>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
 
-
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -208,7 +204,12 @@ class _SkillCardState extends State<SkillCard> {
             // ── Header ───────────────────────────────────────────────
             Row(
               children: [
-                RepaintBoundary(child: _PulsingDot(color: widget.cat.color)),
+                // RepaintBoundary(child: _PulsingDot(color: widget.cat.color)),
+                FaIcon(
+                  widget.cat.iconData,
+                  color: widget.cat.color,
+                  size: 20,
+                ),
                 const SizedBox(width: 10),
                 Text(
                   widget.cat.title.toUpperCase(),

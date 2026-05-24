@@ -6,12 +6,14 @@ class SkillCategory {
   final Color color;
   final Color bgColor;
   final List<String> skills;
+  final FaIconData iconData;
 
   const SkillCategory({
     required this.title,
     required this.color,
     required this.bgColor,
     required this.skills,
+    required this.iconData,
   });
 }
 
