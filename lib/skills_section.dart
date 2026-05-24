@@ -175,7 +175,7 @@ class _AnimatedSkillCardState extends State<_AnimatedSkillCard>
       opacity: _fade,
       child: SlideTransition(
         position: _slide,
-        child: SkillCard(cat: widget.cat, isMobile: widget.isMobile),
+        child: RepaintBoundary(child: SkillCard(cat: widget.cat, isMobile: widget.isMobile)),
       ),
     );
   }
@@ -238,7 +238,7 @@ class _SkillCardState extends State<SkillCard> {
             // ── Header ───────────────────────────────────────────────
             Row(
               children: [
-                _PulsingDot(color: widget.cat.color),
+                RepaintBoundary(child: _PulsingDot(color: widget.cat.color)),
                 const SizedBox(width: 10),
                 Text(
                   widget.cat.title.toUpperCase(),
@@ -310,35 +310,25 @@ class _SkillChip extends StatefulWidget {
 }
 
 class _SkillChipState extends State<_SkillChip> {
-  bool _hovered = false;
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _hovered = true),
-      onExit:  (_) => setState(() => _hovered = false),
-      cursor: SystemMouseCursors.basic,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 160),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          color: _hovered
-              ? widget.color.withOpacity(0.18)
-              : widget.bgColor,
-          border: Border.all(
-            color: _hovered
-                ? widget.color.withOpacity(0.55)
-                : widget.color.withOpacity(0.20),
-            width: 1,
-          ),
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 160),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(6),
+        color: widget.bgColor,
+        border: Border.all(
+          color:  widget.color.withOpacity(0.20),
+          width: 1,
         ),
-        child: Text(
-          widget.label,
-          style: AppTextStyles.mono(
-            fontSize: 11,
-            color: _hovered ? widget.color : widget.color.withOpacity(0.75),
-          ),
+      ),
+      child: Text(
+        widget.label,
+        style: AppTextStyles.mono(
+          fontSize: 11,
+          color: widget.color.withOpacity(0.75),
         ),
       ),
     );

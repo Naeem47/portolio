@@ -44,9 +44,11 @@ class ProjectsSection extends StatelessWidget {
                 delay: Duration(milliseconds: 100 * i),
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 20),
-                  child: _ProjectCard(
-                    project: PortfolioData.projects[i],
-                    isMobile: isMobile,
+                  child: RepaintBoundary(
+                    child: _ProjectCard(
+                      project: PortfolioData.projects[i],
+                      isMobile: isMobile,
+                    ),
                   ),
                 ),
               ),

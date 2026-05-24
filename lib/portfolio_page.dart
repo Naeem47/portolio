@@ -19,15 +19,14 @@ class PortfolioPage extends StatefulWidget {
 class _PortfolioPageState extends State<PortfolioPage> {
   final _scroll = ScrollController();
 
-  // Section keys for scroll-to
   final _heroKey = GlobalKey();
   final _aboutKey = GlobalKey();
   final _skillsKey = GlobalKey();
   final _projectsKey = GlobalKey();
   final _contactKey = GlobalKey();
 
-  bool _navVisible = false;
-  bool _showBackToTop = false;
+  final _navVisible = ValueNotifier<bool>(false);
+  final _showBackToTop = ValueNotifier<bool>(false);
 
   List<GlobalKey> get _sectionKeys => [
     _heroKey,
@@ -48,19 +47,17 @@ class _PortfolioPageState extends State<PortfolioPage> {
     _scroll
       ..removeListener(_onScroll)
       ..dispose();
+    _navVisible.dispose();
+    _showBackToTop.dispose();
     super.dispose();
   }
 
   void _onScroll() {
     final offset = _scroll.offset;
-    final showNav = offset > 80;
-    final showTop = offset > 300;
-    if (showNav != _navVisible || showTop != _showBackToTop) {
-      setState(() {
-        _navVisible = showNav;
-        _showBackToTop = showTop;
-      });
-    }
+    final wantNav = offset > 80;
+    final wantTop = offset > 300;
+    if (_navVisible.value != wantNav) _navVisible.value = wantNav;
+    if (_showBackToTop.value != wantTop) _showBackToTop.value = wantTop;
   }
 
   void _scrollTo(GlobalKey key) {
@@ -68,7 +65,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
     if (ctx == null) return;
     Scrollable.ensureVisible(
       ctx,
-      duration: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 650),
       curve: Curves.easeInOutCubic,
     );
   }
@@ -81,82 +78,130 @@ class _PortfolioPageState extends State<PortfolioPage> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.sizeOf(
+      context,
+    ).width; // sizeOf — no rebuild on padding/inset changes
     final isMobile = width < AppLayout.mobileBreak;
     final isSmallMob = width < AppLayout.smallMobile;
 
     return Scaffold(
       backgroundColor: AppColors.bg,
-      drawer: isMobile
-          ? MobileDrawer(
-              onTap: (i) {
-                Navigator.pop(context);
-                _scrollTo(_sectionKeys[i]);
-              },
-            )
-          : null,
+
       body: Stack(
         children: [
-          // ── Main scroll content ──────────────────────────────────────────────
-          Container(
-            decoration: const BoxDecoration(gradient: AppColors.bgGradient),
-            child: SingleChildScrollView(
-              controller: _scroll,
-              child: Column(
-                children: [
-                  HeroSection(
-                    key: _heroKey,
-                    isMobile: isMobile,
-                    isSmallMobile: isSmallMob,
-                    onScrollDown: () => _scrollTo(_aboutKey),
-                  ),
-                  AboutSection(key: _aboutKey, isMobile: isMobile),
-                  SkillsSection(
-                    key: _skillsKey,
-                    isMobile: isMobile,
-                    isSmallMobile: isSmallMob,
-                  ),
-                  ProjectsSection(
-                    key: _projectsKey,
-                    isMobile: isMobile,
-                    isSmallMobile: isSmallMob,
-                  ),
-                  ContactSection(key: _contactKey, isMobile: isMobile),
-                  FooterSection(isMobile: isMobile),
-                ],
-              ),
-            ),
-          ),
-
-          // // ── Floating nav bar ─────────────────────────────────────────────────
+          // ── Scrollable content — RepaintBoundary keeps it isolated ─────────
+      RepaintBoundary(
+  child: Container(
+    decoration: const BoxDecoration(gradient: AppColors.bgGradient),
+    child: CustomScrollView(
+      controller: _scroll,
+      physics: const ClampingScrollPhysics(),
+      // slivers: [
+      //   SliverToBoxAdapter(
+      //     key: _heroKey,
+      //     child: HeroSection(
+      //       isMobile: isMobile,
+      //       isSmallMobile: isSmallMob,
+      //       onScrollDown: () => _scrollTo(_aboutKey),
+      //     ),
+      //   ),
+      //   SliverToBoxAdapter(
+      //     key: _aboutKey,
+      //     child: AboutSection(isMobile: isMobile),
+      //   ),
+      //   SliverToBoxAdapter(
+      //     key: _skillsKey,
+      //     child: SkillsSection(
+      //       isMobile: isMobile,
+      //       isSmallMobile: isSmallMob,
+      //     ),
+      //   ),
+      //   SliverToBoxAdapter(
+      //     key: _projectsKey,
+      //     child: RepaintBoundary(
+      //       child: ProjectsSection(
+      //         isMobile: isMobile,
+      //         isSmallMobile: isSmallMob,
+      //       ),
+      //     ),
+      //   ),
+      //   SliverToBoxAdapter(
+      //     key: _skillsKey,
+      //     child: RepaintBoundary(
+      //       child: SkillsSection(
+      //         isMobile: isMobile,
+      //         isSmallMobile: isSmallMob,
+      //       ),
+      //     ),
+      //   ),
+      //   SliverToBoxAdapter(
+      //     key: _contactKey,
+      //     child: ContactSection(isMobile: isMobile),
+      //   ),
+      //   SliverToBoxAdapter(
+      //     child: FooterSection(isMobile: isMobile),
+      //   ),
+      // ],
+  
+  slivers: [
+  SliverToBoxAdapter(
+    key: _heroKey,
+    child: HeroSection(
+      isMobile: isMobile,
+      isSmallMobile: isSmallMob,
+      onScrollDown: () => _scrollTo(_aboutKey),
+    ),
+  ),
+  SliverToBoxAdapter(
+    key: _aboutKey,
+    child: AboutSection(isMobile: isMobile),
+  ),
+  SliverToBoxAdapter(
+    key: _skillsKey,
+    child: RepaintBoundary(
+      child: SkillsSection(
+        isMobile: isMobile,
+        isSmallMobile: isSmallMob,
+      ),
+    ),
+  ),
+  SliverToBoxAdapter(
+    key: _projectsKey,
+    child: RepaintBoundary(
+      child: ProjectsSection(
+        isMobile: isMobile,
+        isSmallMobile: isSmallMob,
+      ),
+    ),
+  ),
+  SliverToBoxAdapter(
+    key: _contactKey,
+    child: ContactSection(isMobile: isMobile),
+  ),
+  SliverToBoxAdapter(
+    child: FooterSection(isMobile: isMobile),
+  ),
+],
+    ),
+  ),
+), // ── Floating nav — only repaints itself via ValueListenableBuilder ──
           if (!isMobile)
-            AnimatedOpacity(
-              opacity: _navVisible ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 300),
-              child: IgnorePointer(
-                ignoring: !_navVisible,
-                child: FloatingNav(
-                  isMobile: isMobile,
-                  onTap: (i) => _scrollTo(_sectionKeys[i]),
-                ),
+            _FadeOverlay(
+              visible: _navVisible,
+              child: FloatingNav(
+                isMobile: isMobile,
+                onTap: (i) => _scrollTo(_sectionKeys[i]),
               ),
             ),
 
-          // // ── Back to top FAB ──────────────────────────────────────────────────
+          // ── Back to top FAB — same isolated repaint ───────────────────────
           if (isMobile)
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: AnimatedOpacity(
-                  opacity: _showBackToTop ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 300),
-                  
-                  child: IgnorePointer(
-                    ignoring: !_showBackToTop,
-                    child: _BackToTopButton(onTap: _scrollToTop),
-                  ),
-                ),
+            Positioned(
+              right: 15,
+              bottom: 15,
+              child: _FadeOverlay(
+                visible: _showBackToTop,
+                child: _BackToTopButton(onTap: _scrollToTop),
               ),
             ),
         ],
@@ -164,6 +209,31 @@ class _PortfolioPageState extends State<PortfolioPage> {
     );
   }
 }
+
+// ── Isolated fade overlay ─────────────────────────────────────────────────────
+// Listens to a ValueNotifier and fades in/out without touching the parent tree.
+
+class _FadeOverlay extends StatelessWidget {
+  final ValueNotifier<bool> visible;
+  final Widget child;
+
+  const _FadeOverlay({required this.visible, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<bool>(
+      valueListenable: visible,
+      builder: (_, show, __) => AnimatedOpacity(
+        opacity: show ? 1.0 : 0.0,
+        duration: const Duration(milliseconds: 280),
+        curve: Curves.easeInOut,
+        child: IgnorePointer(ignoring: !show, child: child),
+      ),
+    );
+  }
+}
+
+// ── Back to top button ────────────────────────────────────────────────────────
 
 class _BackToTopButton extends StatefulWidget {
   final VoidCallback onTap;

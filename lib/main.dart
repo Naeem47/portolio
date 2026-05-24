@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'theme.dart';
 import 'portfolio_page.dart';
 
-void main() => runApp(const PortfolioApp());
+void main(){
+WidgetsFlutterBinding.ensureInitialized();
+ runApp(const PortfolioApp());
+} 
+// =>
 
 class PortfolioApp extends StatelessWidget {
   const PortfolioApp({super.key});
@@ -19,7 +22,6 @@ class PortfolioApp extends StatelessWidget {
           primary: AppColors.accent,
           surface: AppColors.surface,
         ),
-        textTheme: GoogleFonts.dmSansTextTheme(ThemeData.dark().textTheme),
         splashColor: AppColors.accent.withOpacity(0.08),
         highlightColor: Colors.transparent,
       ),
