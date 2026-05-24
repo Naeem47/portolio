@@ -40,15 +40,12 @@ class ProjectsSection extends StatelessWidget {
             const SizedBox(height: AppLayout.xxl),
             ...List.generate(
               PortfolioData.projects.length,
-              (i) => FadeSlideIn(
-                delay: Duration(milliseconds: 100 * i),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: RepaintBoundary(
-                    child: _ProjectCard(
-                      project: PortfolioData.projects[i],
-                      isMobile: isMobile,
-                    ),
+              (i) => Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: RepaintBoundary(
+                  child: _ProjectCard(
+                    project: PortfolioData.projects[i],
+                    isMobile: isMobile,
                   ),
                 ),
               ),

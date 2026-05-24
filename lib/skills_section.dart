@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/shared_widgets.dart';
 
-import 'animations.dart';
 import 'models.dart';
 import 'portfolio_data.dart';
 import 'theme.dart';
@@ -20,35 +19,28 @@ class SkillsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final hPad = AppLayout.hPad(MediaQuery.of(context).size.width);
 
-    return FadeSlideIn(
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(
-          horizontal: hPad,
-          vertical: AppLayout.xxxl,
-        ),
-        decoration: const BoxDecoration(
-          color: AppColors.surface,
-          border: Border(top: BorderSide(color: AppColors.border)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SectionLabel("Skills"),
-            const SizedBox(height: 20),
-            Text(
-              "What I work with.",
-              style: AppTextStyles.sectionTitle(
-                fontSize: isMobile ? 32 : 44,
-              ),
-            ),
-            const SizedBox(height: AppLayout.xxl),
-            _SkillsGrid(
-              isMobile: isMobile,
-              isSmallMobile: isSmallMobile,
-            ),
-          ],
-        ),
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(
+        horizontal: hPad,
+        vertical: AppLayout.xxxl,
+      ),
+      decoration: const BoxDecoration(
+        color: AppColors.surface,
+        border: Border(top: BorderSide(color: AppColors.border)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SectionLabel("Skills"),
+          const SizedBox(height: 20),
+          Text(
+            "What I work with.",
+            style: AppTextStyles.sectionTitle(fontSize: isMobile ? 32 : 44),
+          ),
+          const SizedBox(height: AppLayout.xxl),
+          _SkillsGrid(isMobile: isMobile, isSmallMobile: isSmallMobile),
+        ],
       ),
     );
   }
@@ -72,11 +64,7 @@ class _SkillsGrid extends StatelessWidget {
         children: List.generate(cats.length, (i) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 14),
-            child: _AnimatedSkillCard(
-              cat: cats[i],
-              index: i,
-              isMobile: true,
-            ),
+            child: _AnimatedSkillCard(cat: cats[i], index: i, isMobile: true),
           );
         }),
       );
@@ -140,27 +128,12 @@ class _AnimatedSkillCard extends StatefulWidget {
 class _AnimatedSkillCardState extends State<_AnimatedSkillCard>
     with SingleTickerProviderStateMixin {
   late final AnimationController _ctrl;
-  late final Animation<double> _fade;
-  late final Animation<Offset> _slide;
+
 
   @override
   void initState() {
     super.initState();
-    _ctrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
-    _fade  = CurvedAnimation(parent: _ctrl, curve: Curves.easeOut);
-    _slide = Tween<Offset>(
-      begin: const Offset(0, 0.18),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOutCubic));
 
-    // Staggered delay per card
-    Future.delayed(
-      Duration(milliseconds: 120 + widget.index * 90),
-      () { if (mounted) _ctrl.forward(); },
-    );
   }
 
   @override
@@ -171,12 +144,8 @@ class _AnimatedSkillCardState extends State<_AnimatedSkillCard>
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _fade,
-      child: SlideTransition(
-        position: _slide,
-        child: RepaintBoundary(child: SkillCard(cat: widget.cat, isMobile: widget.isMobile)),
-      ),
+    return RepaintBoundary(
+      child: SkillCard(cat: widget.cat, isMobile: widget.isMobile),
     );
   }
 }
@@ -199,7 +168,7 @@ class _SkillCardState extends State<SkillCard> {
   Widget build(BuildContext context) {
     return MouseRegion(
       onEnter: (_) => setState(() => _hovered = true),
-      onExit:  (_) => setState(() => _hovered = false),
+      onExit: (_) => setState(() => _hovered = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 220),
         curve: Curves.easeOutCubic,
@@ -233,7 +202,8 @@ class _SkillCardState extends State<SkillCard> {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min, // ← shrink to content, kills extra padding
+          mainAxisSize:
+              MainAxisSize.min, // ← shrink to content, kills extra padding
           children: [
             // ── Header ───────────────────────────────────────────────
             Row(
@@ -279,11 +249,13 @@ class _SkillCardState extends State<SkillCard> {
               spacing: 7,
               runSpacing: 7,
               children: widget.cat.skills
-                  .map((s) => _SkillChip(
-                        label: s,
-                        color: widget.cat.color,
-                        bgColor: widget.cat.bgColor,
-                      ))
+                  .map(
+                    (s) => _SkillChip(
+                      label: s,
+                      color: widget.cat.color,
+                      bgColor: widget.cat.bgColor,
+                    ),
+                  )
                   .toList(),
             ),
           ],
@@ -310,7 +282,6 @@ class _SkillChip extends StatefulWidget {
 }
 
 class _SkillChipState extends State<_SkillChip> {
-
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
@@ -319,10 +290,7 @@ class _SkillChipState extends State<_SkillChip> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
         color: widget.bgColor,
-        border: Border.all(
-          color:  widget.color.withOpacity(0.20),
-          width: 1,
-        ),
+        border: Border.all(color: widget.color.withOpacity(0.20), width: 1),
       ),
       child: Text(
         widget.label,
@@ -358,10 +326,14 @@ class _PulsingDotState extends State<_PulsingDot>
       vsync: this,
       duration: const Duration(milliseconds: 1600),
     )..repeat();
-    _scale = Tween<double>(begin: 1.0, end: 2.4)
-        .animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
-    _fade  = Tween<double>(begin: 0.6, end: 0.0)
-        .animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
+    _scale = Tween<double>(
+      begin: 1.0,
+      end: 2.4,
+    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
+    _fade = Tween<double>(
+      begin: 0.6,
+      end: 0.0,
+    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
   }
 
   @override
